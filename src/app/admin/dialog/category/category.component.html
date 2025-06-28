@@ -1,0 +1,27 @@
+<mat-toolbar [color]="themeService.getTheme()">
+    <span class="title-center"> {{ dialogData.action }} Category</span>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="categoryForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex [color]="themeService.getTheme()">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="categoryForm.controls.name.touched && categoryForm.controls.name.invalid">
+                        <span *ngIf="categoryForm.controls.name.errors.required">Name is required</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button [color]="themeService.getTheme()" type="submit" (click)="handleSubmit()" [disabled]="!(categoryForm.valid && categoryForm.dirty)">
+        <mat-icon>add_circle</mat-icon>{{ action }}
+    </button>
+
+    <button mat-raised-button [color]="themeService.getTheme()" mat-dialog-close> Close</button>
+</mat-dialog-actions>

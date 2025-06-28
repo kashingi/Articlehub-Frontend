@@ -1,0 +1,19 @@
+<mat-toolbar [color]="themeService.getTheme()">
+    <mat-toolbar-row fxlayout="row">
+        <span class="title-center">View Article</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <div style="color: black;">Title {{ article?.title }}
+        <br>
+        Category: {{ article?.categoryName }}
+        <br>
+        Status: {{ article?.status }}
+    </div>
+    <div [innerHTML]="article.content | sanitizeHtml"></div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button [color]="themeService.getTheme()" mat-dialog-close>Close</button>
+</mat-dialog-actions>

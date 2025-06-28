@@ -1,0 +1,45 @@
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <mat-icon>lock</mat-icon>
+        </div>
+
+        <div style="text-align: center !important; margin-bottom: 5px;">Article Hub</div>
+
+        <form [formGroup]="loginForm">
+            <div fxFlex fxLayout="column">
+                <mat-form-field appearance="outline" fxFlex [color]="themeService.getTheme()">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+                        <span *ngIf="loginForm.controls.email.errors.required">Email is required.</span>
+                        <span *ngIf="loginForm.controls.email.errors.pattern">Email is invalid.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex [color]="themeService.getTheme()">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" required
+                        [type]="hide ? 'password' : 'text'">
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                        [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
+                        <mat-icon> {{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+                        <span *ngIf="loginForm.controls.password.errors.required">Email is required.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button [disabled]="!(loginForm.valid && loginForm.dirty)"
+                    [color]="themeService.getTheme()" (click)="handleSubmit()">Login</button>
+            </div>
+        </form>
+
+        <div class="home-link">
+            <span (click)="onBack()">
+                <span style="color: blue; cursor: pointer;">Back</span>
+            </span>
+        </div>
+    </div>
+
+</body>

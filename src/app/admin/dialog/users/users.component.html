@@ -1,0 +1,56 @@
+<mat-toolbar [color]="themeService.getTheme()">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center"> {{ dialogData.action }} User</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="userForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex [color]="themeService.getTheme()">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="userForm.controls.name.touched && userForm.controls.name.invalid">
+                        <span *ngIf="userForm.controls.name.errors.required">Name is invalid</span>
+                        <span *ngIf="userForm.controls.name.errors.pattern">Name is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex [color]="themeService.getTheme()">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="userForm.controls.email.touched && userForm.controls.email.invalid">
+                        <span *ngIf="userForm.controls.email.errors.required">Email is invalid</span>
+                        <span *ngIf="userForm.controls.email.errors.pattern">Email is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="dialogData.action === 'Add'">
+                <div fxLayout="row wrap">
+                    <mat-form-field appearance="fill" fxFlex [color]="themeService.getTheme()">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password" required
+                            [type]="hide ? 'password' : 'text'">
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                            [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
+                            <mat-icon> {{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="userForm.controls.password.touched && userForm.controls.password.invalid">
+                            <span *ngIf="userForm.controls.password.errors.required">Password is invalid</span>
+                            <span *ngIf="userForm.controls.password.errors.pattern">Password is invalid</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button [color]="themeService.getTheme()" type="submit" (click)="handleSubmit()"
+        [disabled]="!(userForm.valid && userForm.dirty)"><mat-icon>add_circle</mat-icon> {{ action }} </button>
+    <button mat-raised-button [color]="themeService.getTheme()" mat-dialog-close>Close</button>
+</mat-dialog-actions>

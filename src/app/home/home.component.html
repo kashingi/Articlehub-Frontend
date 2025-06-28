@@ -1,0 +1,52 @@
+<mat-toolbar class="mat-elevation-z8" [color]="themeService.getTheme()">
+    Aricle Hub
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>palette</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+        <button mat-fab color="primary" class="button-margin" (click)="changeTheme('primary')">
+            <mat-icon *ngIf="themeService.getTheme() ==='primary'">done</mat-icon>
+        </button>
+
+        <button mat-fab color="accent" class="button-margin" (click)="changeTheme('accent')">
+            <mat-icon *ngIf="themeService.getTheme() ==='accent'">done</mat-icon>
+        </button>
+
+        <button mat-fab color="warn" class="button-margin" (click)="changeTheme('warn')">
+            <mat-icon *ngIf="themeService.getTheme() ==='warn'">done</mat-icon>
+        </button>
+    </mat-menu>
+
+    <button mat-icon-button [routerLink]="['/login']">
+        <mat-icon>login</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<div class="content-wrapper">
+    <br>
+    <mat-form-field appearance="fill" [color]="themeService.getTheme()">
+        <mat-label>Filter</mat-label>
+        <input matInput [(ngModel)]="searchText" (input)="filteredItems()">
+    </mat-form-field>
+    <div class="card-container">
+        <mat-card *ngFor="let card of filteredItems()" (click)="handleViewAction(card)">
+            <mat-card-header>
+                <mat-card-title> {{ card.title }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                Category : {{ card.categoryName }}
+
+                <br>
+                Published On: {{ card.publication_date | date: 'dd-MM-yyyy' }}
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <h1 *ngIf="articles && filteredItems()?.length === 0">Nothing to show</h1>
+</div>
+
+<mat-toolbar [color]="themeService.getTheme()" class="footer">
+    <div class="toolbar-content">All Rights reserved &#64; Villa-Tech Solutions</div>
+</mat-toolbar>
